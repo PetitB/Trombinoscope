@@ -1,21 +1,39 @@
 package com.example.gwladys.trombinoscope.DataMetier;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class Personne {
+    // region Propriétés privées de Personne
+    private static final AtomicInteger compteurId = new AtomicInteger(0);
+    private int id; // L'id est récupéré via la DB
     private String nom;
     private String prenom;
     private String numTel;
     private String courriel;
-    private String photoUrl;
+    private String nomPhoto;
+    // endregion
 
-    public Personne(String unNom, String unPrenom, String unNumTel, String unCourriel, String unePhotoUrl) {
+    public Personne(String unNom, String unPrenom, String unNumTel, String unCourriel, String unNomPhoto) {
+        this.id = compteurId.incrementAndGet();
         this.nom = unNom;
         this.prenom = unPrenom;
         this.numTel = unNumTel;
         this.courriel = unCourriel;
-        this.photoUrl = unePhotoUrl;
+        this.nomPhoto = unNomPhoto;
+    }
+    public Personne(int unId, String unNom, String unPrenom, String unNumTel, String unCourriel, String unNomPhoto) {
+        this.id = compteurId.incrementAndGet() > unId ? compteurId.incrementAndGet() : unId;
+        this.nom = unNom;
+        this.prenom = unPrenom;
+        this.numTel = unNumTel;
+        this.courriel = unCourriel;
+        this.nomPhoto = unNomPhoto;
     }
 
     //region Getters de Personne
+    public int getId(){
+        return id;
+    }
     public String getNom(){
         return nom;
     }
@@ -28,12 +46,15 @@ public class Personne {
     public String getCourriel(){
         return courriel;
     }
-    public String getPhotoUrl(){
-        return photoUrl;
+    public String getNomPhoto(){
+        return nomPhoto;
     }
     //endregion
 
     //region Setters de Personne
+    public void setId(int unId){
+        id = unId;
+    }
     public void setNom(String unNom){
         nom = unNom;
     }
@@ -46,8 +67,8 @@ public class Personne {
     public void setCourriel(String unCourriel){
         courriel = unCourriel;
     }
-    public void setPhotoUrl(String unePhotoUrl){
-        photoUrl = unePhotoUrl;
+    public void setNomPhoto(String unNomPhoto){
+        nomPhoto = unNomPhoto;
     }
     //endregion
 }
