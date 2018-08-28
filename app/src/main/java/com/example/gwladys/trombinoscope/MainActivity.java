@@ -4,17 +4,34 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import java.util.*;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.support.v7.widget.RecyclerView;
+import com.example.gwladys.trombinoscope.DataMetier.*;
+import android.content.Intent;
 
 public class MainActivity extends AppCompatActivity {
+
+    private RecyclerView recyclerView;
+    private List<Personne> simpsons = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ajouterPersonnagesSimpsons();
+
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+
+        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+
+        recyclerView.setAdapter(new MonAdapter(simpsons));
+
         setContentView(R.layout.activity_main);
+        /*
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -22,10 +39,11 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
     }
 
     @Override
@@ -49,4 +67,16 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    private void ajouterPersonnagesSimpsons() {
+        simpsons.add(new Personne("Simpson","Homer","+331.111.111.11", "homer.sompson@gmail.com", "homer_simpson"));
+        simpsons.add(new Personne("Simpson","Marge","+332.222.222.22", "marge.simpson@gmail.com", ""));
+        simpsons.add(new Personne("Simpson","Bart","+333.333.333.33", "bart.du.93@gmail.com", ""));
+        simpsons.add(new Personne("Simpson","Lisa","+334.444.444.44", "lisa.simpson.99@gmail.com", ""));
+        simpsons.add(new Personne("Simpson","Maggie","+335.555.555.55", "maggie.simpson@gmail.com", ""));
+        simpsons.add(new Personne("Nahasapeemapetilon","Apu","+330.000.000.00", "apu.nahasapeerlipopette@aol.com", ""));
+        simpsons.add(new Personne("Flanders","Ned","+336.666.666.66", "i.love.all@god.world", ""));
+        simpsons.add(new Personne("Mongomery Burns","Charles","+339.999.999.99", "my.money@gmail.com", ""));
+    }
 }
+
