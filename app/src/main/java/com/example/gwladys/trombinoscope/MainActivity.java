@@ -70,13 +70,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void ajouterPersonnagesSimpsons() {
         simpsons.add(new Personne("Simpson","Homer","+331.111.111.11", "homer.sompson@gmail.com", "homer_simpson"));
-        simpsons.add(new Personne("Simpson","Marge","+332.222.222.22", "marge.simpson@gmail.com", ""));
-        simpsons.add(new Personne("Simpson","Bart","+333.333.333.33", "bart.du.93@gmail.com", ""));
-        simpsons.add(new Personne("Simpson","Lisa","+334.444.444.44", "lisa.simpson.99@gmail.com", ""));
-        simpsons.add(new Personne("Simpson","Maggie","+335.555.555.55", "maggie.simpson@gmail.com", ""));
-        simpsons.add(new Personne("Nahasapeemapetilon","Apu","+330.000.000.00", "apu.nahasapeerlipopette@aol.com", ""));
-        simpsons.add(new Personne("Flanders","Ned","+336.666.666.66", "i.love.all@god.world", ""));
-        simpsons.add(new Personne("Mongomery Burns","Charles","+339.999.999.99", "my.money@gmail.com", ""));
+        simpsons.add(new Personne("Simpson","Marge","+332.222.222.22", "marge.simpson@gmail.com", "marge_simpson"));
+        simpsons.add(new Personne("Simpson","Bart","+333.333.333.33", "bart.du.93@gmail.com", "bart_simpson"));
+        simpsons.add(new Personne("Simpson","Lisa","+334.444.444.44", "lisa.simpson.99@gmail.com", "lisa_simpson"));
+        simpsons.add(new Personne("Simpson","Maggie","+335.555.555.55", "maggie.simpson@gmail.com", "maggie_simpson"));
+        simpsons.add(new Personne("Nahasapeemapetilon","Apu","+330.000.000.00", "apu.nahasapeerlipopette@aol.com", "apu"));
+        simpsons.add(new Personne("Flanders","Ned","+336.666.666.66", "i.love.all@god.world", "ned_flanders"));
+        simpsons.add(new Personne("Mongomery Burns","Charles","+339.999.999.99", "my.money@gmail.com", "charles_burns"));
     }
 }
 
