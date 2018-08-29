@@ -1,24 +1,22 @@
 package com.example.gwladys.trombinoscope;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import java.util.*;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.support.v7.widget.RecyclerView;
-import com.example.gwladys.trombinoscope.DataMetier.*;
-import android.content.Intent;
+
+import com.example.gwladys.trombinoscope.DataMetier.Personne;
+import com.example.gwladys.trombinoscope.DAO.PersonneDAO;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView leRecyclerView;
-    private List<Personne> simpsons = new ArrayList<>();
+    private List<Personne> listePersonnes = new ArrayList<>();
     private RecyclerView.Adapter pAdapter;
     private GridLayoutManager leGridLayoutManager = new GridLayoutManager(this, 2);
 
@@ -27,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ajouterPersonnagesSimpsons();
+        ajouterPersonnagesSimpsonsParCode();
 
         this.leRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
@@ -35,7 +33,10 @@ public class MainActivity extends AppCompatActivity {
 
         this.leRecyclerView.setLayoutManager(this.leGridLayoutManager);
 
-        this.pAdapter = new MonAdapter(this.simpsons);
+        PersonneDAO unePersonneDao = new PersonneDAO(this);
+        listePersonnes = unePersonneDao.selectionnerToutesLesPersonnes();
+
+        this.pAdapter = new MonAdapter(listePersonnes);
         this.leRecyclerView.setAdapter(this.pAdapter);
         /*
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -74,14 +75,25 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void ajouterPersonnagesSimpsons() {
-        simpsons.add(new Personne("Simpson","Homer","+331.111.111.11", "homer.sompson@gmail.com", "homer_simpson"));
-        simpsons.add(new Personne("Simpson","Marge","+332.222.222.22", "marge.simpson@gmail.com", "marge_simpson"));
-        simpsons.add(new Personne("Simpson","Bart","+333.333.333.33", "bart.du.93@gmail.com", "bart_simpson"));
-        simpsons.add(new Personne("Simpson","Lisa","+334.444.444.44", "lisa.simpson.99@gmail.com", "lisa_simpson"));
-        simpsons.add(new Personne("Simpson","Maggie","+335.555.555.55", "maggie.simpson@gmail.com", "maggie_simpson"));
-        simpsons.add(new Personne("Nahasapeemapetilon","Apu","+330.000.000.00", "apu.nahasapeerlipopette@aol.com", "apu"));
-        simpsons.add(new Personne("Flanders","Ned","+336.666.666.66", "i.love.all@god.world", "ned_flanders"));
-        simpsons.add(new Personne("Mongomery Burns","Charles","+339.999.999.99", "my.money@gmail.com", "charles_burns"));
+    // Méthode d'ajout de personnes tests sans l'utilisation de la base de données et par code, s'ajoute dans la DB après création de la personne
+    private void ajouterPersonnagesSimpsonsParCode() {
+
+        PersonneDAO unePersonneDao = new PersonneDAO(this);
+        Personne unePersonne = new Personne("Simpson","Homer","+331.111.111.11", "homer.sompson@gmail.com", "homer_simpson");
+        unePersonneDao.ajouterPersonne(unePersonne);
+        unePersonne = new Personne("Simpson","Marge","+332.222.222.22", "marge.simpson@gmail.com", "marge_simpson");
+        unePersonneDao.ajouterPersonne(unePersonne);
+        unePersonne = new Personne("Simpson","Bart","+333.333.333.33", "bart.du.93@gmail.com", "bart_simpson");
+        unePersonneDao.ajouterPersonne(unePersonne);
+        unePersonne = new Personne("Simpson","Lisa","+334.444.444.44", "lisa.simpson.99@gmail.com", "lisa_simpson");
+        unePersonneDao.ajouterPersonne(unePersonne);
+        unePersonne = new Personne("Simpson","Maggie","+335.555.555.55", "maggie.simpson@gmail.com", "maggie_simpson");
+        unePersonneDao.ajouterPersonne(unePersonne);
+        unePersonne = new Personne("Nahasapeemapetilon","Apu","+330.000.000.00", "apu.nahasa@aol.com", "apu");
+        unePersonneDao.ajouterPersonne(unePersonne);
+        unePersonne = new Personne("Flanders","Ned","+336.666.666.66", "i.love.all@god.world", "ned_flanders");
+        unePersonneDao.ajouterPersonne(unePersonne);
+        unePersonne = new Personne("Mongomery Burns","Charles","+339.999.999.99", "my.money@gmail.com", "charles_burns");
+        unePersonneDao.ajouterPersonne(unePersonne);
     }
 }

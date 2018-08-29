@@ -4,6 +4,7 @@ import com.example.gwladys.trombinoscope.DataMetier.Personne;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -37,12 +38,14 @@ public class PersonneDAO extends DAOBase {
      */
     public void ajouterPersonne (Personne p) {
         ContentValues value = new ContentValues();
-        value.put(NOM, p.getNom());
-        value.put(PRENOM, p.getPrenom());
-        value.put(NUMTEL, p.getNumTel());
-        value.put(COURRIEL, p.getCourriel());
-        value.put(NOMPHOTO, p.getNomPhoto());
-        pDb.insert(PersonneDAO.TABLE_NAME, null, value);
+        String nom = p.getNom(), prenom = p.getPrenom(), numTel = p.getNumTel(), courriel = p.getCourriel(), nomPhoto = p.getNomPhoto();
+        value.put(NOM, nom);
+        value.put(PRENOM, prenom);
+        value.put(NUMTEL, numTel);
+        value.put(COURRIEL, courriel);
+        value.put(NOMPHOTO, nomPhoto);
+        SQLiteDatabase personneDb = pDb;
+        personneDb.insert(TABLE_NAME, null, value);
     }
 
     /**
