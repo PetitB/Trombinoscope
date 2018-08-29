@@ -8,16 +8,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.gwladys.trombinoscope.DataMetier.Personne;
 
+import java.util.HashMap;
+
 public class MonViewHolder extends RecyclerView.ViewHolder{
 
     private ImageView personneImageView;
     private TextView personneTextView;
-    private View personneView;
 
     //
     public MonViewHolder(View view) {
         super(view);
-        this.personneView = view;
+
+        personneTextView = (TextView) itemView.findViewById(R.id.text);
+        personneImageView = (ImageView) itemView.findViewById(R.id.image);
     }
 
     // Afficher la personne
@@ -30,9 +33,11 @@ public class MonViewHolder extends RecyclerView.ViewHolder{
         nomPhoto = unePersonne.getNomPhoto();
 
         String texte = nom + " " + prenom + "\n" + numTel + "\n" + courriel;
-        //Resources resource = getResources();
-        //int idPhoto = resource.getIdentifier(nomPhoto, "drawable", "com.example.gwladys.trombinoscope");
-        //this.personneImageView.setImageResource(idPhoto);
+        Context contexte = personneImageView.getContext();
+        Resources resource = contexte.getResources();
+        int idPhoto = resource.getIdentifier(nomPhoto, "drawable", "com.example.gwladys.trombinoscope.res");
+
+        this.personneImageView.setImageResource(idPhoto);
         this.personneTextView.setText(texte);
     }
 }

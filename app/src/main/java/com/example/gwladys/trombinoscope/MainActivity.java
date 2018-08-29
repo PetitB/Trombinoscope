@@ -25,10 +25,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
         ajouterPersonnagesSimpsons();
 
-        setContentView(R.layout.activity_main);
         this.leRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
         this.leRecyclerView.setHasFixedSize(true);

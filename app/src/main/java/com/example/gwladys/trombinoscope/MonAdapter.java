@@ -1,11 +1,9 @@
 package com.example.gwladys.trombinoscope;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.gwladys.trombinoscope.DataMetier.Personne;
 
@@ -13,7 +11,6 @@ import java.util.List;
 
 public class MonAdapter extends RecyclerView.Adapter<MonViewHolder> {
     List<Personne> liste;
-
     // Constructeur avec uneListe de Personne en paramètre
     public MonAdapter(List<Personne> uneListe) {
         this.liste = uneListe;
@@ -22,7 +19,7 @@ public class MonAdapter extends RecyclerView.Adapter<MonViewHolder> {
     //Permet d'indiquer la vue à inflater
     @Override
     public MonViewHolder onCreateViewHolder(ViewGroup uneVueDeGroupe, int itemType) {
-        View view= LayoutInflater.from(uneVueDeGroupe.getContext()).inflate(R.layout.activity_main, uneVueDeGroupe,false);
+        View view= LayoutInflater.from(uneVueDeGroupe.getContext()).inflate(R.layout.listepersonnes, uneVueDeGroupe,false);
         return new MonViewHolder(view);
     }
 
@@ -30,7 +27,7 @@ public class MonAdapter extends RecyclerView.Adapter<MonViewHolder> {
     @Override
     public void onBindViewHolder(MonViewHolder leViewHolder, int position) {
         Personne unePersonne = this.liste.get(position);
-        //leViewHolder.afficherPersonne(unePersonne);
+        leViewHolder.afficherPersonne(unePersonne);
     }
 
     @Override
