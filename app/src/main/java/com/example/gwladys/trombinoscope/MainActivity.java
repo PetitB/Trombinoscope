@@ -1,5 +1,6 @@
 package com.example.gwladys.trombinoscope;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,21 +17,26 @@ import android.content.Intent;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
+    private RecyclerView leRecyclerView;
     private List<Personne> simpsons = new ArrayList<>();
+    private RecyclerView.Adapter pAdapter;
+    private GridLayoutManager leGridLayoutManager = new GridLayoutManager(this, 2);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         ajouterPersonnagesSimpsons();
 
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-
-        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
-
-        recyclerView.setAdapter(new MonAdapter(simpsons));
-
         setContentView(R.layout.activity_main);
+        this.leRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+
+        this.leRecyclerView.setHasFixedSize(true);
+
+        this.leRecyclerView.setLayoutManager(this.leGridLayoutManager);
+
+        this.pAdapter = new MonAdapter(this.simpsons);
+        this.leRecyclerView.setAdapter(this.pAdapter);
         /*
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -79,4 +85,3 @@ public class MainActivity extends AppCompatActivity {
         simpsons.add(new Personne("Mongomery Burns","Charles","+339.999.999.99", "my.money@gmail.com", "charles_burns"));
     }
 }
-
