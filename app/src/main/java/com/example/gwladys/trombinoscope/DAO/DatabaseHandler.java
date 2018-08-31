@@ -7,9 +7,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String PERSONNE_KEY = "id";
     public static final String PERSONNE_NOM = "nom";
     public static final String PERSONNE_PRENOM = "prenom";
-    public static final String PERSONNE_NUMTEL = "numTel";
+    public static final String PERSONNE_NUMTEL = "numtel";
     public static final String PERSONNE_COURRIEL = "courriel";
-    public static final String PERSONNE_PHOTOURL = "photoUrl";
+    public static final String PERSONNE_NOMPHOTO = "nomphoto";
 
     public static final String PERSONNE_TABLE_NAME = "personne";
     public static final String PERSONNE_TABLE_CREATE =
@@ -17,9 +17,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     PERSONNE_KEY + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     PERSONNE_NOM + " TEXT NOT NULL, " +
                     PERSONNE_PRENOM + " TEXT NOT NULL, " +
-                    PERSONNE_NUMTEL + " TEXT, " +
-                    PERSONNE_COURRIEL + "TEXT, "+
-                    PERSONNE_PHOTOURL + "TEXT  NOT NULL);";
+                    PERSONNE_NUMTEL + " TEXT NOT NULL, " +
+                    PERSONNE_COURRIEL + " TEXT NOT NULL, "+
+                    PERSONNE_NOMPHOTO + " TEXT NOT NULL);";
 
     public static final String PERSONNE_TABLE_DROP = "DROP TABLE IF EXISTS " + PERSONNE_TABLE_NAME + ";";
 

@@ -4,8 +4,8 @@ import com.example.gwladys.trombinoscope.DataMetier.Personne;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,9 +14,9 @@ public class PersonneDAO extends DAOBase {
     public static final String KEY = "id";
     public static final String NOM = "nom";
     public static final String PRENOM = "prenom";
-    public static final String NUMTEL = "numTel";
+    public static final String NUMTEL = "numtel";
     public static final String COURRIEL = "courriel";
-    public static final String NOMPHOTO = "nomPhoto";
+    public static final String NOMPHOTO = "nomphoto";
 
     public static final String PERSONNE_TABLE_CREATE =
             "CREATE TABLE " + TABLE_NAME + " (" +
@@ -24,8 +24,8 @@ public class PersonneDAO extends DAOBase {
                     NOM + " TEXT NOT NULL, " +
                     PRENOM + " TEXT NOT NULL, " +
                     NUMTEL + " TEXT NOT NULL, " +
-                    COURRIEL + "TEXT NOT NULL, "+
-                    NOMPHOTO + "TEXT  NOT NULL);";
+                    COURRIEL + " TEXT NOT NULL, "+
+                    NOMPHOTO + " TEXT  NOT NULL);";
 
     public static final String TABLE_DROP =  "DROP TABLE IF EXISTS " + TABLE_NAME + ";";
 
@@ -34,6 +34,7 @@ public class PersonneDAO extends DAOBase {
     }
 
     /**
+     * Insère une nouvelle personne dans la DB
      * @param p la personne à ajouter dans la base
      */
     public void ajouterPersonne (Personne p) {
@@ -44,18 +45,23 @@ public class PersonneDAO extends DAOBase {
         value.put(NUMTEL, numTel);
         value.put(COURRIEL, courriel);
         value.put(NOMPHOTO, nomPhoto);
-        SQLiteDatabase personneDb = pDb;
-        personneDb.insert(TABLE_NAME, null, value);
+        open();
+        pDb.insert(TABLE_NAME, null, value);
+        close();
     }
 
     /**
+     * Supprime la personne à l'id indiqué
      * @param id l'identifiant du métier à supprimer
      */
     public void supprimer(long id) {
+        open();
         pDb.delete(TABLE_NAME, KEY + " = ?", new String[] {String.valueOf(id)});
+        close();
     }
 
     /**
+     * Remet à jour la personne
      * @param p la personne à modifier
      */
     public void modifier(Personne p) {
@@ -65,7 +71,9 @@ public class PersonneDAO extends DAOBase {
         value.put(NUMTEL, p.getNumTel());
         value.put(COURRIEL, p.getCourriel());
         value.put(NOMPHOTO, p.getNomPhoto());
+        open();
         pDb.update(TABLE_NAME, value, KEY  + " = ?", new String[] {String.valueOf(p.getId())});
+        close();
     }
 
     /**
@@ -73,7 +81,8 @@ public class PersonneDAO extends DAOBase {
      */
     public List<Personne> selectionnerToutesLesPersonnes() {
 
-        List<Personne> personneListe = new LinkedList<Personne>();
+        List<Personne> personneListe = new ArrayList<Personne>();
+        open();
         Cursor curseur = pDb.rawQuery("select * from " + TABLE_NAME, null);
 
         if (curseur.moveToFirst()) {
@@ -90,6 +99,7 @@ public class PersonneDAO extends DAOBase {
                 personneListe.add(p);
             } while (curseur.moveToNext());
         }
+        close();
         return personneListe;
     }
 }
