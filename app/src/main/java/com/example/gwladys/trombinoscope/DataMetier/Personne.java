@@ -1,5 +1,7 @@
 package com.example.gwladys.trombinoscope.DataMetier;
 
+import com.example.gwladys.trombinoscope.DAO.PersonneDAO;
+
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Personne {
@@ -14,12 +16,7 @@ public class Personne {
     // endregion
 
     public Personne(String unNom, String unPrenom, String unNumTel, String unCourriel, String unNomPhoto) {
-        this.id = compteurId.incrementAndGet();
-        this.nom = unNom;
-        this.prenom = unPrenom;
-        this.numTel = unNumTel;
-        this.courriel = unCourriel;
-        this.nomPhoto = unNomPhoto;
+        new Personne(compteurId.incrementAndGet(), unNom, unPrenom, unNumTel, unCourriel, unNomPhoto);
     }
     public Personne(int unId, String unNom, String unPrenom, String unNumTel, String unCourriel, String unNomPhoto) {
         this.id = compteurId.incrementAndGet() > unId ? compteurId.incrementAndGet() : unId;

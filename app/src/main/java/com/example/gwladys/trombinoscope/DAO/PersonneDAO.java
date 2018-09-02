@@ -79,11 +79,11 @@ public class PersonneDAO extends DAOBase {
     /**
      * Récupère toutes les personnes de la DB
      */
-    public List<Personne> selectionnerToutesLesPersonnes() {
+    public ArrayList<Personne> selectionnerToutesLesPersonnes() {
 
-        List<Personne> personneListe = new ArrayList<Personne>();
+        ArrayList<Personne> personneListe = new ArrayList<Personne>();
         open();
-        Cursor curseur = pDb.rawQuery("select * from " + TABLE_NAME, null);
+        Cursor curseur = pDb.rawQuery("select * from " + TABLE_NAME + " order by nom", null);
 
         if (curseur.moveToFirst()) {
             do {
@@ -101,5 +101,45 @@ public class PersonneDAO extends DAOBase {
         }
         close();
         return personneListe;
+    }
+
+    /**
+     * Vérifie si la personne existe déjà dans la base de données
+     * @Param p la personne à contrôler l'existance
+     */
+    public boolean siPersonneExiste(String nom, String prenom){
+
+        Cursor curseur = pDb.rawQuery("select id from " + TABLE_NAME + " where nom = ? and prenom = ?", null);
+        return curseur.moveToFirst();
+    }
+
+    /**
+     * Vérifie si le numéro de téléphone existe déjà dans la base de données
+     * @Param p la personne à contrôler l'existance
+     */
+    public boolean siNumTelExiste(String numTel){
+
+        Cursor curseur = pDb.rawQuery("select id from " + TABLE_NAME + " where numtel = ?", null);
+        return curseur.moveToFirst();
+    }
+
+    /**
+     * Vérifie si le courriel existe déjà dans la base de données
+     * @Param p la personne à contrôler l'existance
+     */
+    public boolean siCourrielExiste(String courriel){
+
+        Cursor curseur = pDb.rawQuery("select id from " + TABLE_NAME + " where courriel = ?", null);
+        return curseur.moveToFirst();
+    }
+
+    /**
+     * Vérifie si le courriel existe déjà dans la base de données
+     * @Param p la personne à contrôler l'existance
+     */
+    public boolean siNomPhotoExiste(String nomPhoto){
+
+        Cursor curseur = pDb.rawQuery("select id from " + TABLE_NAME + " where nomphoto = ?", null);
+        return curseur.moveToFirst();
     }
 }
