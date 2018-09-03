@@ -15,6 +15,10 @@ public class Personne {
     private String nomPhoto;
     // endregion
 
+    public Personne(){
+
+    }
+
     public Personne(String unNom, String unPrenom, String unNumTel, String unCourriel, String unNomPhoto) {
         new Personne(compteurId.incrementAndGet(), unNom, unPrenom, unNumTel, unCourriel, unNomPhoto);
     }

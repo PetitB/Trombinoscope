@@ -1,6 +1,7 @@
 package com.example.gwladys.trombinoscope;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -17,8 +18,8 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class MonAdaptateur extends BaseAdapter {
-    Context contexte;
-    ArrayList<Personne> listePersonne;
+    private Context contexte;
+    private ArrayList<Personne> listePersonne;
 
     public MonAdaptateur(Context contexte, ArrayList<Personne> listePersonne) {
         this.contexte = contexte;
@@ -47,9 +48,12 @@ public class MonAdaptateur extends BaseAdapter {
             view= LayoutInflater.from(contexte).inflate(R.layout.listepersonnes,viewGroup,false);
         }
 
+        view.setClickable(true);
+
         final Personne unePersonne = (Personne) this.getItem(i);
 
-        TextView nomEtPrenomTexte= (TextView) view.findViewById(R.id.nomEtPrenomTexte);
+        TextView nomTexte= (TextView) view.findViewById(R.id.nomTexte);
+        TextView prenomTexte= (TextView) view.findViewById(R.id.prenomTexte);
         TextView numTelTexte= (TextView) view.findViewById(R.id.numTelTexte);
         TextView courrielTexte= (TextView) view.findViewById(R.id.courrielTexte);
         ImageView photoPersonne = (ImageView) view.findViewById(R.id.photoPersonne);
@@ -57,12 +61,14 @@ public class MonAdaptateur extends BaseAdapter {
         //BIND
         String nom = unePersonne.getNom().toUpperCase();
         String prenom = unePersonne.getPrenom().substring(0,1).toUpperCase() + unePersonne.getPrenom().substring(1).toLowerCase();
-        final String nomEtPrenom = nom + " " + prenom ;
-        nomEtPrenomTexte.setText(nomEtPrenom);
+        final int unId = unePersonne.getId();
+
+        nomTexte.setText(nom);
+        prenomTexte.setText(prenom);
         numTelTexte.setText(unePersonne.getNumTel());
         courrielTexte.setText(unePersonne.getCourriel());
 
-        File imgFile = new File("/storage/emulated/0/Pictures/" + unePersonne.getNomPhoto());
+        File imgFile = new File("/data/data/com.example.gwladys.trombinoscope/Pictures", unePersonne.getNomPhoto());
 
         if(imgFile.exists()){
 
@@ -73,7 +79,10 @@ public class MonAdaptateur extends BaseAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(contexte, "Lance l'action de modification de la personne : " + nomEtPrenom, Toast.LENGTH_SHORT).show();
+                Intent intentionModif = new Intent(contexte, ajoutModifPersoActivity.class);
+                intentionModif.putExtra("idPersonne", unId);
+                contexte.startActivity(intentionModif);
+                //Toast.makeText(contexte, "Lance l'action de modification de la personne : " + nomEtPrenom, Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -1,9 +1,14 @@
 <resources>
     <string name="app_name">Trombinoscope</string>
     <string name="action_settings">Settings</string>
-    <string name="todo">TODO</string>
+    <string name="todo">Photo absente</string>
     <string name="ajouter">Ajouter</string>
-    <string name="subsitut_nom_prenom">Nom et prénom</string>
+    <string name="subsitut_nom">Nom</string>
+    <string name="subsitut_prenom">Prénom</string>
     <string name="substitut_tel">Téléphone</string>
     <string name="substitut_courriel">Courriel</string>
+    <string name="action_ajout">Ajouter</string>
+    <string name="action_modif">Modifier</string>
+    <string name="retour">Retour</string>
+    <string name="parcourir">Parcourir</string>
 </resources>

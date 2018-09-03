@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -54,7 +55,7 @@ public class PersonneDAO extends DAOBase {
      * Supprime la personne à l'id indiqué
      * @param id l'identifiant du métier à supprimer
      */
-    public void supprimer(long id) {
+    public void supprimerPersonne(long id) {
         open();
         pDb.delete(TABLE_NAME, KEY + " = ?", new String[] {String.valueOf(id)});
         close();
@@ -64,7 +65,7 @@ public class PersonneDAO extends DAOBase {
      * Remet à jour la personne
      * @param p la personne à modifier
      */
-    public void modifier(Personne p) {
+    public void modifierPersonne(Personne p) {
         ContentValues value = new ContentValues();
         value.put(NOM, p.getNom());
         value.put(PRENOM, p.getPrenom());
@@ -81,7 +82,7 @@ public class PersonneDAO extends DAOBase {
      */
     public ArrayList<Personne> selectionnerToutesLesPersonnes() {
 
-        ArrayList<Personne> personneListe = new ArrayList<Personne>();
+        ArrayList<Personne> personneListe = new ArrayList<>();
         open();
         Cursor curseur = pDb.rawQuery("select * from " + TABLE_NAME + " order by nom", null);
 
@@ -103,43 +104,97 @@ public class PersonneDAO extends DAOBase {
         return personneListe;
     }
 
-    /**
-     * Vérifie si la personne existe déjà dans la base de données
-     * @Param p la personne à contrôler l'existance
-     */
-    public boolean siPersonneExiste(String nom, String prenom){
+    public Personne selectionnerUnePersonneViaId(int id){
+        Personne laPersonne = new Personne();
+        open();
+        Cursor curseur = pDb.rawQuery("select * from " + TABLE_NAME + " where id = ?",new String[] {String.valueOf(id)});
+        if (curseur.moveToFirst()) {
+            laPersonne = new Personne(
+            Integer.parseInt(curseur.getString(0)),
+            curseur.getString(1),
+            curseur.getString(2),
+            curseur.getString(3),
+            curseur.getString(4),
+            curseur.getString(5));
+        }
+        close();
+        return laPersonne;
+    }
 
-        Cursor curseur = pDb.rawQuery("select id from " + TABLE_NAME + " where nom = ? and prenom = ?", null);
-        return curseur.moveToFirst();
+    public String siAutrePersonneExisteAvecIdDifferent(Personne p){
+
+        String message = siNomEtPrenomExiste(p.getNom(),p.getPrenom(), p.getId());
+        message += siNumTelExiste(p.getNumTel(), p.getId());
+        message += siCourrielExiste(p.getCourriel(), p.getId());
+        return message;
+    }
+
+    /**
+     * Vérifie si une personne porte déjà le même nom et prénom dans la base de données
+     * @param nom le nom de la personne à contrôler l'existance
+     * @param prenom
+     */
+    private String siNomEtPrenomExiste(String nom, String prenom, Integer id){
+
+        open();
+        Cursor curseur = pDb.rawQuery("select id from " + TABLE_NAME + " where lower(nom) like ? and lower(prenom) like ? and id != ?", new String[] {nom, prenom, String.valueOf(id)});
+        String message = "";
+        if(curseur.moveToFirst() && curseur.getInt(0) != 0){
+
+            message = "Une personne portant ce nom et prénom existe déjà.\n";
+        }
+        close();
+        return message;
     }
 
     /**
      * Vérifie si le numéro de téléphone existe déjà dans la base de données
-     * @Param p la personne à contrôler l'existance
+     * @param numTel le numéro de la personne à contrôler l'existance
      */
-    public boolean siNumTelExiste(String numTel){
+    private String siNumTelExiste(String numTel, Integer id){
 
-        Cursor curseur = pDb.rawQuery("select id from " + TABLE_NAME + " where numtel = ?", null);
-        return curseur.moveToFirst();
+        open();
+        Cursor curseur = pDb.rawQuery("select id from " + TABLE_NAME + " where numtel like ? and id not like ?", new String[] {numTel, String.valueOf(id)});
+        String message = "";
+        if(curseur.moveToFirst()){
+
+            message = "Ce numéro de téléphone existe déjà.\n";
+        }
+        close();
+        return message;
     }
 
     /**
      * Vérifie si le courriel existe déjà dans la base de données
-     * @Param p la personne à contrôler l'existance
+     * @param courriel le courriel à contrôler l'existance
      */
-    public boolean siCourrielExiste(String courriel){
+    private String siCourrielExiste(String courriel, Integer id){
 
-        Cursor curseur = pDb.rawQuery("select id from " + TABLE_NAME + " where courriel = ?", null);
-        return curseur.moveToFirst();
+        open();
+        Cursor curseur = pDb.rawQuery("select id from " + TABLE_NAME + " where courriel like ? and id not like ?", new String[] {courriel, String.valueOf(id)});
+        String message = "";
+        if(curseur.moveToFirst()){
+
+            message = "Ce courriel existe déjà.";
+        }
+        close();
+        return message;
     }
 
     /**
-     * Vérifie si le courriel existe déjà dans la base de données
-     * @Param p la personne à contrôler l'existance
+     * Vérifie si ce nom de photo existe déjà dans la base de données
+     * @param nomPhoto le nom de la photo à contrôler l'existance
      */
-    public boolean siNomPhotoExiste(String nomPhoto){
+    private String siNomPhotoExiste(String nomPhoto, Integer id){
 
-        Cursor curseur = pDb.rawQuery("select id from " + TABLE_NAME + " where nomphoto = ?", null);
-        return curseur.moveToFirst();
+        open();
+        Cursor curseur = pDb.rawQuery("select id from " + TABLE_NAME + " where lower(nomphoto) like lower(?) and id not like ?", new String[] {nomPhoto, String.valueOf(id)});
+        String message = "";
+        if(curseur.moveToFirst()){
+
+            message = "Ce nom de photo est déjà pris.";
+        }
+        close();
+        return message;
     }
 }

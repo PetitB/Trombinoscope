@@ -8,34 +8,43 @@
     card_view:cardElevation="10dp"
     android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:minHeight="50dp"
-        app:layout_scrollFlags="scroll|enterAlwaysCollapsed" >
-
-        <ImageView
-            android:id="@+id/photoPersonne"
-            android:layout_height="300dp"
-            android:contentDescription="@string/todo"
-            android:layout_width="wrap_content" />
-
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:minHeight="50dp"
+            android:layout_margin="10dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed" >
+
+            <ImageView
+                android:id="@+id/photoPersonne"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/todo"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/subsitut_nom_prenom"
-                android:id="@+id/nomEtPrenomTexte"
-                android:padding="14dp"
+                android:text="@string/subsitut_nom"
+                android:id="@+id/nomTexte"
+                android:layout_marginBottom="3dp"
                 android:textColor="@android:color/holo_blue_dark"
                 android:textSize="24sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:maxLines="1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/subsitut_prenom"
+                android:id="@+id/prenomTexte"
+                android:layout_marginBottom="3dp"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:maxLines="1"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -44,7 +53,8 @@
                 android:text="@string/substitut_tel"
                 android:textSize="14sp"
                 android:id="@+id/numTelTexte"
-                android:padding="14dp"/>
+                android:layout_marginBottom="3dp"
+                android:maxLines="1"/>
 
 
             <TextView
@@ -54,10 +64,9 @@
                 android:text="@string/substitut_tel"
                 android:textSize="14sp"
                 android:id="@+id/courrielTexte"
-                android:padding="8dp"/>
+                android:layout_marginBottom="3dp"
+                android:maxLines="1"/>
 
         </LinearLayout>
-
-    </LinearLayout>
 
 </android.support.v7.widget.CardView>

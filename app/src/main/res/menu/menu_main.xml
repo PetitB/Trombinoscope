@@ -1,10 +1,25 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.gwladys.trombinoscope.MainActivity">
+    tools:context="com.example.gwladys.trombinoscope.ajoutModifPersoActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/retour"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="@string/retour"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/parcourir"
+        android:orderInCategory="100"
+        android:title="@string/parcourir"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_ajout"
+        android:orderInCategory="100"
+        android:title="@string/action_ajout"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_modif"
+        android:orderInCategory="100"
+        android:title="@string/action_modif"
         app:showAsAction="never" />
 </menu>
