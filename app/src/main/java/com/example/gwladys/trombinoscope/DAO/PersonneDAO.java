@@ -185,7 +185,7 @@ public class PersonneDAO extends DAOBase {
      * Vérifie si ce nom de photo existe déjà dans la base de données
      * @param nomPhoto le nom de la photo à contrôler l'existance
      */
-    private String siNomPhotoExiste(String nomPhoto, Integer id){
+    public String siNomPhotoExiste(String nomPhoto, Integer id){
 
         open();
         Cursor curseur = pDb.rawQuery("select id from " + TABLE_NAME + " where lower(nomphoto) like lower(?) and id not like ?", new String[] {nomPhoto, String.valueOf(id)});

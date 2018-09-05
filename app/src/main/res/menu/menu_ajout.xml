@@ -1,25 +1,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.gwladys.trombinoscope.ajoutModifPersoActivity">
+    tools:context="com.example.gwladys.trombinoscope.ModifPersonneActivity">
     <item
         android:id="@+id/retour"
+        android:icon="@android:drawable/ic_menu_revert"
         android:orderInCategory="100"
         android:title="@string/retour"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/parcourir"
+        android:icon="@android:drawable/stat_sys_download"
         android:orderInCategory="100"
         android:title="@string/parcourir"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_ajout"
+        android:id="@+id/ajout"
+        android:icon="@android:drawable/ic_menu_add"
         android:orderInCategory="100"
         android:title="@string/action_ajout"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_modif"
-        android:orderInCategory="100"
-        android:title="@string/action_modif"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
 </menu>

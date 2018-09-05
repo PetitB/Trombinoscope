@@ -1,6 +1,5 @@
 package com.example.gwladys.trombinoscope;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -22,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main_activity);
 
         laGrille = (GridView) findViewById(R.id.grille);
 
@@ -38,9 +37,10 @@ public class MainActivity extends AppCompatActivity {
         boutonAjout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentionAjout = new Intent(MainActivity.this, ajoutModifPersoActivity.class);
+
+                // Lance l'activité d'ajout de personne
+                Intent intentionAjout = new Intent(MainActivity.this, AjoutPersonneActivity.class);
                 MainActivity.this.startActivity(intentionAjout);
-                /*Toast.makeText(contexte, "Lance l'action d'ajout de personne.", Toast.LENGTH_SHORT).show();*/
             }
         });
     }

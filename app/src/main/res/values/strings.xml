@@ -9,6 +9,7 @@
     <string name="substitut_courriel">Courriel</string>
     <string name="action_ajout">Ajouter</string>
     <string name="action_modif">Modifier</string>
+    <string name="action_suppression">Supprimer</string>
     <string name="retour">Retour</string>
     <string name="parcourir">Parcourir</string>
 </resources>

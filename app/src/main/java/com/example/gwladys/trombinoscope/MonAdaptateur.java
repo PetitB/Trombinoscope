@@ -45,7 +45,7 @@ public class MonAdaptateur extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         if(view==null)
         {
-            view= LayoutInflater.from(contexte).inflate(R.layout.listepersonnes,viewGroup,false);
+            view= LayoutInflater.from(contexte).inflate(R.layout.liste_personnes,viewGroup,false);
         }
 
         view.setClickable(true);
@@ -68,7 +68,7 @@ public class MonAdaptateur extends BaseAdapter {
         numTelTexte.setText(unePersonne.getNumTel());
         courrielTexte.setText(unePersonne.getCourriel());
 
-        File imgFile = new File("/data/data/com.example.gwladys.trombinoscope/Pictures", unePersonne.getNomPhoto());
+        File imgFile = new File(contexte.getFilesDir(), unePersonne.getNomPhoto());
 
         if(imgFile.exists()){
 
@@ -79,10 +79,9 @@ public class MonAdaptateur extends BaseAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentionModif = new Intent(contexte, ajoutModifPersoActivity.class);
+                Intent intentionModif = new Intent(contexte, ModifPersonneActivity.class);
                 intentionModif.putExtra("idPersonne", unId);
                 contexte.startActivity(intentionModif);
-                //Toast.makeText(contexte, "Lance l'action de modification de la personne : " + nomEtPrenom, Toast.LENGTH_SHORT).show();
             }
         });
 

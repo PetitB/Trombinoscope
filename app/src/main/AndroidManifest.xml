@@ -19,9 +19,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ajoutModifPersoActivity"
-            android:label="Ajout ou modification"
-            android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".ModifPersonneActivity"
+            android:label="Modif"
+            android:theme="@style/AppTheme.ActionBar">
+        </activity>
+        <activity android:name=".AjoutPersonneActivity"
+            android:label="Ajout"
+            android:theme="@style/AppTheme.ActionBar">
         </activity>
 
     </application>
