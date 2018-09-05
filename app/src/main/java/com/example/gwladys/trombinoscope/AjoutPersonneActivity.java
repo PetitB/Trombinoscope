@@ -47,6 +47,7 @@ public class AjoutPersonneActivity extends AppCompatActivity {
         numTelTexteAjout = (TextView) findViewById(R.id.numTelTexteAjout);
         courrielTexteAjout = (TextView) findViewById(R.id.courrielTexteAjout);
         photoPersonneAjout = (ImageView) findViewById(R.id.photoPersonneAjout);
+        v = courrielTexteAjout.getRootView();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -72,9 +73,9 @@ public class AjoutPersonneActivity extends AppCompatActivity {
                 String unPrenom = prenomTexteAjout.getText().toString();
                 String unNumTel = numTelTexteAjout.getText().toString();
                 String unCourriel = courrielTexteAjout.getText().toString();
-                String unNomPhoto = photoPersonneAjout.getContentDescription().toString();
+                String unNomPhoto = "";//photoPersonneAjout.getContentDescription().toString();
 
-                unePersonneAVerifier = new Personne(unNom, unPrenom, unNumTel, unCourriel, unNomPhoto);
+                unePersonneAVerifier = new Personne(unePersonneDao.getLastId() + 1, unNom, unPrenom, unNumTel, unCourriel, unNomPhoto);
 
                 String messageErreur = unePersonneDao.siAutrePersonneExisteAvecIdDifferent(unePersonneAVerifier);
 
@@ -105,11 +106,11 @@ public class AjoutPersonneActivity extends AppCompatActivity {
 
         //Snackbar.make(v, uriDataString, Snackbar.LENGTH_LONG).show();
         String nomPhoto = uriDataString.substring(uriDataString.lastIndexOf("/") + 1);
-        String extension = nomPhoto.substring(nomPhoto.lastIndexOf("."));
-        String nomPhotoSansExtension = nomPhoto.substring(nomPhoto.lastIndexOf(".") - 1);
 
-        while(unePersonneDao.siNomPhotoExiste(nomPhoto, -1) != ""){
-            nomPhoto += nomPhotoSansExtension + "-1" + extension;
+        Integer compteur = 0;
+        while(unePersonneDao.siNomPhotoExiste(nomPhoto, -1).equals("")){
+            nomPhoto = nomPhoto + "-" + compteur;
+            compteur++;
         }
 
         try {
@@ -119,7 +120,6 @@ public class AjoutPersonneActivity extends AppCompatActivity {
             Files.copy(pathData, pathTarget);
             File imgFile = new File(AjoutPersonneActivity.this.getFilesDir(), nomPhoto);
             Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-            //Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uriData);
             photoPersonneAjout.setContentDescription(nomPhoto);
             photoPersonneAjout.setImageBitmap(myBitmap);
         } catch (IOException e) {

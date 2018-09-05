@@ -1,12 +1,13 @@
 package com.example.gwladys.trombinoscope.DataMetier;
 
+import android.content.Context;
+
 import com.example.gwladys.trombinoscope.DAO.PersonneDAO;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Personne {
     // region Propriétés privées de Personne
-    private static final AtomicInteger compteurId = new AtomicInteger(0);
     private int id; // L'id est récupéré via la DB
     private String nom;
     private String prenom;
@@ -19,9 +20,6 @@ public class Personne {
 
     }
 
-    public Personne(String unNom, String unPrenom, String unNumTel, String unCourriel, String unNomPhoto) {
-        new Personne(compteurId.incrementAndGet(), unNom, unPrenom, unNumTel, unCourriel, unNomPhoto);
-    }
     public Personne(int unId, String unNom, String unPrenom, String unNumTel, String unCourriel, String unNomPhoto) {
         this.id = unId;
         this.nom = unNom;

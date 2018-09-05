@@ -7,23 +7,23 @@
         android:icon="@android:drawable/ic_menu_revert"
         android:orderInCategory="100"
         android:title="@string/retour"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
     <item
         android:id="@+id/parcourir"
-        android:icon="@android:drawable/stat_sys_download"
+        android:icon="@android:drawable/ic_menu_gallery"
         android:orderInCategory="100"
         android:title="@string/parcourir"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
     <item
         android:id="@+id/modif"
         android:icon="@android:drawable/ic_menu_edit"
         android:orderInCategory="100"
         android:title="@string/action_modif"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
     <item
         android:id="@+id/suppression"
         android:icon="@android:drawable/ic_menu_delete"
         android:orderInCategory="100"
         android:title="@string/action_suppression"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 </menu>

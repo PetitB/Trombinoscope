@@ -100,8 +100,10 @@ public class ModifPersonneActivity extends AppCompatActivity {
                 String unCourriel = courrielTexteModif.getText().toString();
                 String unNomPhoto = photoPersonneModif.getContentDescription().toString();
 
-                unePersonneAVerifier = new Personne(idPersonne, unNom, unPrenom, unNumTel, unCourriel, unNomPhoto);
+                unePersonneAVerifier = new Personne(unePersonneDao.getLastId() + 1, unNom, unPrenom, unNumTel, unCourriel, unNomPhoto);
+
                 String messageErreur = unePersonneDao.siAutrePersonneExisteAvecIdDifferent(unePersonneAVerifier);
+
                 if (messageErreur != "") {
 
                     Snackbar.make(v, messageErreur, Snackbar.LENGTH_LONG).show();
@@ -134,11 +136,11 @@ public class ModifPersonneActivity extends AppCompatActivity {
 
         //Snackbar.make(v, uriDataString, Snackbar.LENGTH_LONG).show();
         String nomPhoto = uriDataString.substring(uriDataString.lastIndexOf("/") + 1);
-        String extension = nomPhoto.substring(nomPhoto.lastIndexOf("."));
-        String nomPhotoSansExtension = nomPhoto.substring(nomPhoto.lastIndexOf(".") - 1);
 
-        while(unePersonneDao.siNomPhotoExiste(nomPhoto, -1) != ""){
-            nomPhoto += nomPhotoSansExtension + "-1" + extension;
+        Integer compteur = 0;
+        while (unePersonneDao.siNomPhotoExiste(nomPhoto, -1).equals("")) {
+            nomPhoto = nomPhoto + "-" + compteur;
+            compteur++;
         }
 
         try {
@@ -148,7 +150,6 @@ public class ModifPersonneActivity extends AppCompatActivity {
             Files.copy(pathData, pathTarget);
             File imgFile = new File(ModifPersonneActivity.this.getFilesDir(), nomPhoto);
             Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-            //Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uriData);
             photoPersonneModif.setContentDescription(nomPhoto);
             photoPersonneModif.setImageBitmap(myBitmap);
         } catch (IOException e) {

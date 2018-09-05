@@ -78,6 +78,22 @@ public class PersonneDAO extends DAOBase {
     }
 
     /**
+     * Obtient le dernier id de la base
+     */
+    public Integer getLastId(){
+
+        open();
+        Cursor curseur = pDb.rawQuery("select MAX(id) from " + TABLE_NAME, null);
+        Integer lastId = 0;
+        if(curseur.moveToFirst()){
+
+            lastId = curseur.getInt(0);
+        }
+        close();
+        return lastId;
+    }
+
+    /**
      * Récupère toutes les personnes de la DB
      */
     public ArrayList<Personne> selectionnerToutesLesPersonnes() {
