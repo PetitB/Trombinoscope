@@ -23,7 +23,7 @@ public class Personne {
         new Personne(compteurId.incrementAndGet(), unNom, unPrenom, unNumTel, unCourriel, unNomPhoto);
     }
     public Personne(int unId, String unNom, String unPrenom, String unNumTel, String unCourriel, String unNomPhoto) {
-        this.id = compteurId.incrementAndGet() > unId ? compteurId.incrementAndGet() : unId;
+        this.id = unId;
         this.nom = unNom;
         this.prenom = unPrenom;
         this.numTel = unNumTel;
