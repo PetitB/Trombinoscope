@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.gwladys.trombinoscope.DAO.PersonneDAO;
@@ -42,12 +43,12 @@ public class AjoutPersonneActivity extends AppCompatActivity {
 
         Toolbar laToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(laToolbar);
+        v = (LinearLayout) findViewById(R.id.layoutModif);
         nomTexteAjout = (TextView) findViewById(R.id.nomTexteAjout);
         prenomTexteAjout = (TextView) findViewById(R.id.prenomTexteAjout);
         numTelTexteAjout = (TextView) findViewById(R.id.numTelTexteAjout);
         courrielTexteAjout = (TextView) findViewById(R.id.courrielTexteAjout);
         photoPersonneAjout = (ImageView) findViewById(R.id.photoPersonneAjout);
-        v = courrielTexteAjout.getRootView();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

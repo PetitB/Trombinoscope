@@ -9,6 +9,8 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class PersonneDAO extends DAOBase {
     public static final String TABLE_NAME = "personne";
@@ -59,6 +61,11 @@ public class PersonneDAO extends DAOBase {
         open();
         pDb.delete(TABLE_NAME, KEY + " = ?", new String[] {String.valueOf(id)});
         close();
+        open();
+        ContentValues value = new ContentValues();
+        value.put("seq", getLastId() - 1);
+        pDb.update("sqlite_sequence", value, "seq = ?", new String[] {String.valueOf(getLastId())});
+        close();
     }
 
     /**
@@ -83,7 +90,7 @@ public class PersonneDAO extends DAOBase {
     public Integer getLastId(){
 
         open();
-        Cursor curseur = pDb.rawQuery("select MAX(id) from " + TABLE_NAME, null);
+        Cursor curseur = pDb.rawQuery("select max(id) from " + TABLE_NAME, null);
         Integer lastId = 0;
         if(curseur.moveToFirst()){
 
@@ -139,9 +146,9 @@ public class PersonneDAO extends DAOBase {
 
     public String siAutrePersonneExisteAvecIdDifferent(Personne p){
 
-        String message = siNomEtPrenomExiste(p.getNom(),p.getPrenom(), p.getId());
-        message += siNumTelExiste(p.getNumTel(), p.getId());
-        message += siCourrielExiste(p.getCourriel(), p.getId());
+        String message = siNomEtPrenomValide(p.getNom(),p.getPrenom(), p.getId());
+        message += siNumTelValide(p.getNumTel(), p.getId());
+        message += siCourrielValide(p.getCourriel(), p.getId());
         return message;
     }
 
@@ -150,14 +157,24 @@ public class PersonneDAO extends DAOBase {
      * @param nom le nom de la personne à contrôler l'existance
      * @param prenom
      */
-    private String siNomEtPrenomExiste(String nom, String prenom, Integer id){
+    private String siNomEtPrenomValide(String nom, String prenom, Integer id){
+
+        String message = "";
+
+        if(nom.equals("") || nom.length() < 2){
+
+            message = "Le nom est invalide.\n";
+        }
+        if(prenom.equals("") || prenom.length() < 2){
+
+            message += "Le prénom est invalide.\n";
+        }
 
         open();
         Cursor curseur = pDb.rawQuery("select id from " + TABLE_NAME + " where lower(nom) like ? and lower(prenom) like ? and id != ?", new String[] {nom, prenom, String.valueOf(id)});
-        String message = "";
-        if(curseur.moveToFirst() && curseur.getInt(0) != 0){
+        if(curseur.moveToFirst()){
 
-            message = "Une personne portant ce nom et prénom existe déjà.\n";
+            message += "Une personne portant ce nom et prénom existe déjà.\n";
         }
         close();
         return message;
@@ -167,14 +184,20 @@ public class PersonneDAO extends DAOBase {
      * Vérifie si le numéro de téléphone existe déjà dans la base de données
      * @param numTel le numéro de la personne à contrôler l'existance
      */
-    private String siNumTelExiste(String numTel, Integer id){
+    private String siNumTelValide(String numTel, Integer id){
 
+        String message = "";
+        Pattern pattern = Pattern.compile("^(\\+3[0-9]{2}|[0-9]{2})(\\.?)([0-9]{2}\\2){3}[0-9]{2}$");
+        Matcher matcher = pattern.matcher(numTel);
+        if(!matcher.find()){
+
+            message = "Le numéro de téléphone est invalide.\n";
+        }
         open();
         Cursor curseur = pDb.rawQuery("select id from " + TABLE_NAME + " where numtel like ? and id not like ?", new String[] {numTel, String.valueOf(id)});
-        String message = "";
         if(curseur.moveToFirst()){
 
-            message = "Ce numéro de téléphone existe déjà.\n";
+            message += "Ce numéro de téléphone existe déjà.\n";
         }
         close();
         return message;
@@ -184,14 +207,20 @@ public class PersonneDAO extends DAOBase {
      * Vérifie si le courriel existe déjà dans la base de données
      * @param courriel le courriel à contrôler l'existance
      */
-    private String siCourrielExiste(String courriel, Integer id){
+    private String siCourrielValide(String courriel, Integer id){
 
+        String message = "";
+        Pattern pattern = Pattern.compile("^[a-zA-Z0-9][a-zA-Z0-9\\.\\-]*([a-zA-Z0-9]\\@[a-z]{3,20}\\.[a-z]{2,5})$");
+        Matcher matcher = pattern.matcher(courriel);
+        if(!matcher.find()){
+
+            message = "Le courriel est invalide.\n";
+        }
         open();
         Cursor curseur = pDb.rawQuery("select id from " + TABLE_NAME + " where courriel like ? and id not like ?", new String[] {courriel, String.valueOf(id)});
-        String message = "";
         if(curseur.moveToFirst()){
 
-            message = "Ce courriel existe déjà.";
+            message += "Ce courriel existe déjà.";
         }
         close();
         return message;

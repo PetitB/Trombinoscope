@@ -25,7 +25,7 @@
                 android:id="@+id/photoPersonneAjout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@android:drawable/stat_notify_error"
+                android:background="@android:drawable/ic_menu_report_image"
                 android:contentDescription="@string/todo"
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
@@ -46,53 +46,54 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:minHeight="50dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:layout_scrollFlags="scroll|enterAlwaysCollapsed" >
-
-        <EditText
-            android:inputType="text"
+        <LinearLayout
+            android:id="@+id/layoutAjout"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:hint="@string/subsitut_nom"
-            android:id="@+id/nomTexteAjout"
-            android:layout_marginBottom="3dp"
-            android:textSize="24sp"/>
+            android:layout_height="match_parent"
+            android:minHeight="50dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layout_scrollFlags="scroll|enterAlwaysCollapsed" >
 
-        <EditText
-            android:inputType="text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:hint="@string/subsitut_prenom"
-            android:id="@+id/prenomTexteAjout"
-            android:layout_marginBottom="3dp"
-            android:textSize="24sp"/>
+            <EditText
+                android:inputType="text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:hint="@string/subsitut_nom"
+                android:id="@+id/nomTexteAjout"
+                android:layout_marginBottom="3dp"
+                android:textSize="24sp"/>
 
-        <EditText
-            android:inputType="text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:hint="@string/substitut_tel"
-            android:id="@+id/numTelTexteAjout"
-            android:layout_marginBottom="3dp"
-            android:textSize="24sp"/>
+            <EditText
+                android:inputType="text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:hint="@string/subsitut_prenom"
+                android:id="@+id/prenomTexteAjout"
+                android:layout_marginBottom="3dp"
+                android:textSize="24sp"/>
 
-        <EditText
-            android:inputType="textEmailAddress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:hint="@string/substitut_courriel"
-            android:id="@+id/courrielTexteAjout"
-            android:layout_marginBottom="3dp"
-            android:textSize="24sp"/>
+            <EditText
+                android:inputType="text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:hint="@string/substitut_tel"
+                android:id="@+id/numTelTexteAjout"
+                android:layout_marginBottom="3dp"
+                android:textSize="24sp"/>
 
-    </LinearLayout>
+            <EditText
+                android:inputType="textEmailAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:hint="@string/substitut_courriel"
+                android:id="@+id/courrielTexteAjout"
+                android:layout_marginBottom="3dp"
+                android:textSize="24sp"/>
+
+        </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

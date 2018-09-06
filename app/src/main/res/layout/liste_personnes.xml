@@ -20,11 +20,12 @@
 
             <ImageView
                 android:id="@+id/photoPersonne"
-                android:elevation="20dp"
                 android:layout_width="wrap_content"
-                android:minHeight="75dp"
                 android:layout_height="75dp"
-                android:contentDescription="@string/todo"/>
+                android:background="@android:drawable/ic_menu_report_image"
+                android:contentDescription="@string/todo"
+                android:elevation="20dp"
+                android:minHeight="75dp" />
 
             <TextView
                 android:layout_width="wrap_content"

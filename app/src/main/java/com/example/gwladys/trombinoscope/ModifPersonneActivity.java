@@ -8,10 +8,12 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.gwladys.trombinoscope.DAO.PersonneDAO;
@@ -42,13 +44,15 @@ public class ModifPersonneActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.modif_personne);
 
+        Toolbar laToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(laToolbar);
+        v = (LinearLayout) findViewById(R.id.layoutModif);
         nomTexteModif = (TextView) findViewById(R.id.nomTexteModif);
         prenomTexteModif = (TextView) findViewById(R.id.prenomTexteModif);
         numTelTexteModif = (TextView) findViewById(R.id.numTelTexteModif);
         courrielTexteModif = (TextView) findViewById(R.id.courrielTexteModif);
         photoPersonneModif = (ImageView) findViewById(R.id.photoPersonneModif);
 
-        v = photoPersonneModif.getRootView();
         Intent intent = getIntent();
         idPersonne = intent.getIntExtra("idPersonne", -1);
 
@@ -70,9 +74,6 @@ public class ModifPersonneActivity extends AppCompatActivity {
             photoPersonneModif.setContentDescription(unePersonne.getNomPhoto());
             photoPersonneModif.setImageBitmap(myBitmap);
         }
-
-        Toolbar laToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(laToolbar);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -100,7 +101,7 @@ public class ModifPersonneActivity extends AppCompatActivity {
                 String unCourriel = courrielTexteModif.getText().toString();
                 String unNomPhoto = photoPersonneModif.getContentDescription().toString();
 
-                unePersonneAVerifier = new Personne(unePersonneDao.getLastId() + 1, unNom, unPrenom, unNumTel, unCourriel, unNomPhoto);
+                unePersonneAVerifier = new Personne(idPersonne, unNom, unPrenom, unNumTel, unCourriel, unNomPhoto);
 
                 String messageErreur = unePersonneDao.siAutrePersonneExisteAvecIdDifferent(unePersonneAVerifier);
 
